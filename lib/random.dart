@@ -20,16 +20,33 @@ class RandomWordsState extends State<RandomWords> {
     return new Scaffold(
       appBar: new AppBar(
         title: new Text("列表"),
-        actions: <Widget>[new IconButton(icon: new Icon(Icons.list), onPressed: (){
-          Navigator.of(context).push(new MaterialPageRoute(builder: (context){
-            return new Scaffold(
-              appBar: new AppBar(
-                title: new Text("收藏"),
-              ),
-              body: new Text("`````````````````detail`````````````"),
-            );
-          }));
-        })],
+        actions: <Widget>[
+          new IconButton(
+              icon: new Icon(Icons.list),
+              onPressed: () {
+                Navigator.of(context)
+                    .push(new MaterialPageRoute(builder: (context) {
+                  final _selectSuggesstions = <ItemModule>[];
+                  for (ItemModule item in _suggestions) {
+                    if (item.select) {
+                      _selectSuggesstions.add(item);
+                    }
+                  }
+                  return new Scaffold(
+                    appBar: new AppBar(
+                      title: new Text("收藏"),
+                    ),
+                    body: new ListView.builder(
+                        itemCount: _selectSuggesstions.length,
+                        itemBuilder: (context, i) {
+                          return new ListTile(
+                            title: new Text(_selectSuggesstions[i].name),
+                          );
+                        }),
+                  );
+                }));
+              })
+        ],
       ),
       body: _buildSuggestions(context, _suggestions),
     );
