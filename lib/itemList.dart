@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:english_words/english_words.dart';
 import 'module/ItemModule.dart';
+import 'collcetList.dart';
 
 final _suggestions = <ItemModule>[];
+
+class itemList extends Scaffold{
+  @override
+  Widget get body => new RandomWords();
+}
 
 class RandomWords extends StatefulWidget {
   @override
@@ -32,18 +38,7 @@ class RandomWordsState extends State<RandomWords> {
                       _selectSuggesstions.add(item);
                     }
                   }
-                  return new Scaffold(
-                    appBar: new AppBar(
-                      title: new Text("收藏"),
-                    ),
-                    body: new ListView.builder(
-                        itemCount: _selectSuggesstions.length,
-                        itemBuilder: (context, i) {
-                          return new ListTile(
-                            title: new Text(_selectSuggesstions[i].name),
-                          );
-                        }),
-                  );
+                  return new CollectList(context, _selectSuggesstions);
                 }));
               })
         ],
